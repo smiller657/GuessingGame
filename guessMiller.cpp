@@ -11,43 +11,59 @@
 using namespace std;
 
 //Description: Uses srand function to generate a random number between 1-1000
+//Inputs:  None.
+//Outputs: Returns a randomly generated number between 1 and 1000.
 int generateNumber();
+
+//Description:  Asks user for a guess, verifying input is a number and within range.
+//Inputs: None. Function handles input through cin/cout.
+//Outputs: Returns the user's guess to the main program. 
 int getGuess();
+
+//The compares the guess to the computer's number and provides feedback if incorrect.
+//Input: The generated integer and the guessed integer.
+//Output:  Returns a boolean, true if the guess is correct, false if guess is incorrect.
 bool compare(int generated, int guess);
 
 
-int main()
-{
+int main() {
 	int genNum = 0;
 	int userNum = 0;
 	//Seed the number generator
 	srand(time(0)%INT_MAX);
 	cout<<"Welcome to the Guessing Game! Developed by Samantha Miller."<<endl;
 	genNum = generateNumber();
-	cout<<genNum<<endl;
+	cout<<"Number generated: "<<genNum<<endl;
 	cout<<"I have generated a random number for you to guess."<<endl;
-	numUser = getGuess();
-
+	userNum = getGuess();
+	cout<<"You guessed "<<userNum<<"."<<endl;
 	return 0;
 }
 
-int generateNumber()
-{
+int generateNumber() {
 	int number = 0;
 	number = rand()%1000 + 1;
 }
 
-int getGuess()
-{
+int getGuess() {
 	int guess = 0;
-	cout<<"Type a number between 1 and 1000: ";
 	//While it does not meet the number criteria, guess again.
-	while (!(cin.peek() >= '0' && <= '9'))
-	{
-		cout<<"You typed an invalid character! Type a number betweeen 1 and 1000: ";
-	}
+	bool goodNum = false;
+	do {
+		cout<<"Type a number between 1 and 1000: ";
+		while (cin.peek() >= '0' && cin.peek() <= '9') {
+			cin>>guess;
+		}
+		if (guess > 0 && guess <= 1000) {
+			goodNum = true;
+		} else {
+			cout<<"Your entry did not meet the parameters."<<endl;
+			goodNum = false;
+			cin.ignore(80, '\n');
+		}
+	} while (goodNum == false);
+	return guess;
 }
-/*
-bool compare(int generated, int guess)
-{
-}*/
+
+bool compare(int generated, int guess) {
+}
