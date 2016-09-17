@@ -27,16 +27,41 @@ bool compare(int generated, int guess);
 
 
 int main() {
+
 	int genNum = 0;
 	int userNum = 0;
+	bool rightAnswer = false;
+	char yn = 'y';
+
 	//Seed the number generator
 	srand(time(0)%INT_MAX);
-	cout<<"Welcome to the Guessing Game! Developed by Samantha Miller."<<endl;
-	genNum = generateNumber();
-	cout<<"Number generated: "<<genNum<<endl;
-	cout<<"I have generated a random number for you to guess."<<endl;
-	userNum = getGuess();
-	cout<<"You guessed "<<userNum<<"."<<endl;
+	cout<<"The Guessing Game: Developed by Samantha Miller."<<endl;
+	cout<<"Cranky prompts inspired by GLaDOS. There will be cake after the tests are complete."<<endl;
+	
+	//Loop to quit the program
+	do {
+		cout<<endl;
+		genNum = generateNumber();
+		cout<<"Number generated: "<<genNum<<endl;
+		cout<<"I have generated a random number for you to guess."<<endl;
+		
+		//Loop for to continue guessing
+		//I've never done this many do/whiles in my life.
+		do {
+			userNum = getGuess();
+			cout<<"You guessed "<<userNum<<"."<<endl;
+			rightAnswer = compare(genNum, userNum);
+			cout<<endl;
+		} while (!rightAnswer);
+
+		cout<<endl;
+		cout<<"You have won. For now."<<endl;
+		cout<<"Would you like another test? Game. I meant game. Type y or n: ";
+		cin.get(yn);
+		cin.ignore(80, '\n');
+	} while (yn != 'n');
+
+	cout<<"This concludes this portion of the test. I lied about the cake."<<endl;
 	return 0;
 }
 
@@ -62,8 +87,18 @@ int getGuess() {
 			cin.ignore(80, '\n');
 		}
 	} while (goodNum == false);
+	cin.ignore(80, '\n');
 	return guess;
 }
 
 bool compare(int generated, int guess) {
+	if (generated < guess) {
+		cout<<"Typical human. Guess lower."<<endl;
+		return false;
+	} else if (generated > guess) {
+		cout<<"I thought you were smarter than you looked. Guess higher."<<endl;
+		return false;
+	} else {
+		return true;
+	}
 }
