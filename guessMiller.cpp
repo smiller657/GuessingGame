@@ -1,6 +1,6 @@
 /* Samantha Miller
    CPSC-340-01
-   Project 1: Guessing Game*/
+   Project 1: Guessing Game: Computer generates a random number for the user to guess.*/
 
 #include <iostream>
 #include <string>
@@ -25,7 +25,8 @@ int getGuess();
 //Output:  Returns a boolean, true if the guess is correct, false if guess is incorrect.
 bool compare(int generated, int guess);
 
-
+//The program that runs the user interface, functions, and generates a number to guess.
+//No inputs. Output returns 0 if no errors.
 int main() {
 
 	int genNum = 0;
@@ -36,13 +37,14 @@ int main() {
 	//Seed the number generator
 	srand(time(0)%INT_MAX);
 	cout<<"The Guessing Game: Developed by Samantha Miller."<<endl;
-	cout<<"Cranky prompts inspired by GLaDOS. There will be cake after the tests are complete."<<endl;
+	cout<<"Cranky prompts inspired by GLaDOS (owned by Valve Corporation)."<<endl;
+	cout<<"There will be cake after the tests are complete."<<endl;
 	
 	//Loop to quit the program
 	do {
 		cout<<endl;
 		genNum = generateNumber();
-		cout<<"Number generated: "<<genNum<<endl;
+		//cout<<"Number generated: "<<genNum<<endl;
 		cout<<"I have generated a random number for you to guess."<<endl;
 		
 		//Loop for to continue guessing
@@ -59,6 +61,9 @@ int main() {
 		cout<<"Would you like another test? Game. I meant game. Type y or n: ";
 		cin.get(yn);
 		cin.ignore(80, '\n');
+		if (yn != 'y' && yn != 'n') {
+			cout<<"You do not follow directions well and neither typed y nor n. We shall continue."<<endl;
+		}
 	} while (yn != 'n');
 
 	cout<<"This concludes this portion of the test. I lied about the cake."<<endl;
